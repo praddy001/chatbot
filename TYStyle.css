@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1b0621;
+  font-family: Arial, sans-serif;
+}
+
+.main{
+    padding: 2rem;
+}
+
+.yearheading{
+  height: 5rem ;
+  width: 100%;
+  background: linear-gradient(180deg, #1b0128, #620292, #b892cb, #75438e, #1b0128);
+  color: #ffffff;
+  text-align: center;
+  justify-content: center;
+  padding: 1rem;
+  /* margin: 2rem auto; */
+}
+
+.yearheading h1{
+   background: linear-gradient(90deg , #ffffff); /* gradient colors */
+ /* -webkit-background-clip: text; /* clip background to text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* make text fill transparent */
+  color: #ffff;
+}
+
+.heading {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem auto;
+  background: linear-gradient(180deg, #1b0128, #620292);
+  color: #fff;
+  border-radius: 0.5rem;
+  width: 80%;
+}
+.subject {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  box-shadow: 10px 10px 20px #2a033e, -10px -10px 20px #FDCFFA;
+}
+
+.sub {
+  flex: 0 0 220px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 1rem;
+  padding: 2rem;
+  background: linear-gradient(90deg, #fdcffa, #84027c, #380234);
+  transition: transform 0.2s ease-in-out;
+}
+
+.sub:hover {
+  transform: scale(1.05);
+  box-shadow: 10px 10px 20px #FDCFFA, -10px -10px 20px #2a033e;
+}
+
+.sub img {
+  height: 70px;
+  width: 70px;
+  margin-bottom: 1rem;
+}
+
+.sub button {
+  color: #4E56C0;
+  background-color: #FDCFFA;
+  /* border: 2px solid #2a033e; */
+  border: none;
+  box-shadow: 10px 10px 20px #2a033e, -10px -10px 20px #FDCFFA;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  width: 8rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+
+.subject:not(.pyramid) {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.subject button:hover{
+  color: #ffff;
+  background: linear-gradient(90deg, #020b8d, #252c79, #b0b0b7);
+  /* border: 3px solid #2a033e;/ */
+  box-shadow: 10px 10px 20px #2a033e, -10px -10px 20px #FDCFFA;
+}
+
+.subject.pyramid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.subject.pyramid .row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+

@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #4b0000;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar (header) */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #320001;
+  color: #fff;
+  height: 3.5rem;
+  width: 100%;
+  padding: 0 2rem;
+  box-shadow: 0 0 15px #710103;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.navbar img {
+  border-radius: 50%;
+  background-color: #fdcffa;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-content p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.1;
+}
+
+.headline {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.main{
+  padding: 2rem;
+}
+
+.cos{
+    height: 20rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 10px 10px 20px #640002, -10px -10px 20px #ffc3c4;
+    color: #ffff;
+}
+
+.co p:hover{
+    transform: scale(1.05);
+ }
+
+ .co h2{
+    margin-top: 3rem;
+ }
+ .title{
+    font-size:16px; 
+    font-weight:700; 
+    text-align:center; 
+    padding:10px 8px
+}
+
+  .tbl-wrap {
+    height: 28rem;
+    overflow-x: auto;
+    margin-top: 2rem;
+    box-shadow: 10px 10px 20px #640002, -10px -10px 20px #ffc3c4;
+  }
+
+  .tbl-wrap  h2{
+    margin-top: 3rem;
+  }
+
+  table.exam {
+    margin-top: 1.8rem;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1200px;
+    border: 2px solid #444;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  /* table.exam caption {
+    text-align: left;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 15px;
+    background: #4a69bd;
+    color: #fff;
+    border-bottom: 2px solid #333;
+  } */
+  table.exam th, table.exam td {
+    border: 1px solid #bbb;
+    padding: 10px 8px;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.3;
+  }
+  table.exam thead th {
+    background: linear-gradient(360deg, #ff5100, #780111, #4f000b);
+    color: #ffffff;
+    font-weight: 700;
+  }
+  table.exam tbody tr:nth-child(even) {
+    background: #f7f9fc;
+  }
+  table.exam tbody tr:hover {
+    background: #eef3fb;
+  }
+  /* specific widths */
+  .col-code { width: 90px; }
+  .col-title { width: 260px; text-align:left; }
+  .col-abbr { width: 70px; }
+  .col-cat { width: 100px; }
+  .col-credits { width: 80px; }
+  .col-duration { width: 100px; }
+  .group-title { background: #dfe7fb; }
+  .small { font-size: 13px; }
+  .multi { font-size: 12px; line-height: 1.2; }
+/*
+.syllabus h2{
+    margin-top: 2rem;
+}
+
+.syllabus{
+    margin-top: 3rem;
+    box-shadow: 10px 10px 20px #640002, -10px -10px 20px #ffc3c4;
+}
+
+.syllabustable{
+    margin-top: 1.2rem;
+    border: 2px solid #070707;
+}
+
+.syllabus th{
+    font-size: 20px;
+    background: linear-gradient(360deg, #ff5100, #780111, #4f000b);
+    color: #fff;
+    padding:2rem;
+}
+
+.syllabus td{
+    text-align: left;
+    font-size: 18px;
+    background-color: #ffff;
+    padding: 2rem;
+} */
