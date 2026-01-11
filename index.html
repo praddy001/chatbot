@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Portal</title>
+
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Font Awesome CDN (keeps same) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="nav-logo">
+        <img src="{{ url_for('static', filename='imgfolder/logo.png') }}" alt="Logo" width="50">
+      </div>  
+      <div class="nav-content">
+        <p>Home</p>
+        <p>Notes</p>
+        <a href="/chatbot"><button>Chatbot</button></a>
+        <div class="login">
+          <!-- change 'login' to the name of your login route if different -->
+          <a href="{{ url_for('login') }}"><button>Login</button></a>
+        </div>
+        <div class="theme-toggle">
+          <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main">
+    <!-- Staff Section -->
+    <section class="staff-material">
+      <div class="staff">
+        <img src="{{ url_for('static', filename='imgfolder/profile.png') }}" alt="Teacher">
+        <h2>Name</h2>
+        <p>Teacher details</p>
+        <button>Connect</button>
+      </div>
+
+      <div class="staff">
+        <img src="{{ url_for('static', filename='imgfolder/profile.png') }}" alt="Teacher">
+        <h2>Name</h2>
+        <p>Teacher details</p>
+        <button>Connect</button>
+      </div>
+
+      <div class="staff">
+        <img src="{{ url_for('static', filename='imgfolder/profile.png') }}" alt="Teacher">
+        <h2>Name</h2>
+        <p>Teacher details</p>
+        <button>Connect</button>
+      </div>
+
+      <div class="staff">
+        <img src="{{ url_for('static', filename='imgfolder/profile.png') }}" alt="Teacher">
+        <h2>Name</h2>
+        <p>Teacher details</p>
+        <button>Connect</button>
+      </div>
+    </section>
+
+    <div class="yearbox"></div>
+
+    <div class="year">
+      <div class="yearbtn">
+        <!-- Use url_for to route to the pages that render those templates -->
+        <a href="{{ url_for('firstyear') }}"><button>First year</button></a>
+        <a href="{{ url_for('secondyear') }}"><button>Second year</button></a>
+        <a href="{{ url_for('thirdyear') }}"><button>Third year</button></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local JS -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

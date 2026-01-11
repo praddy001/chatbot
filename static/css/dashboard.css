@@ -1,0 +1,170 @@
+/* -------- GLOBAL -------- */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: #121212;
+  color: #fff;
+}
+
+/* -------- LAYOUT -------- */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* -------- SIDEBAR -------- */
+.sidebar {
+  width: 260px;
+  background: #0f0f0f;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.profile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile h3 {
+  margin: 4px 0 2px;
+}
+
+.profile p {
+  margin: 0;
+  color: #bdbdbd;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #bdbdbd;
+  padding: 10px 6px;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 4px 0;
+}
+
+.sidebar nav a:hover {
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+
+/* -------- MAIN AREA -------- */
+.main {
+  flex: 1;
+  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #bdbdbd;
+}
+
+.top-actions button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* -------- CARDS -------- */
+.cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 18px;
+  border-radius: 10px;
+  min-width: 160px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.card-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 1.4rem;
+}
+
+/* -------- NOTES -------- */
+.notes .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.note-card {
+  background: #1b1b1b;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.note-card p {
+  margin: 4px 0 10px;
+  color: #bdbdbd;
+}
+
+.download {
+  color: #2b6cb0;
+  text-decoration: none;
+}
+
+/* -------- EVENTS -------- */
+.events ul {
+  list-style: none;
+  padding: 0;
+}
+
+.events li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.event-detail {
+  color: #bdbdbd;
+  font-size: 0.9rem;
+}
+
+/* -------- DARK MODE TOGGLE -------- */
+body.dark {
+  background: #000;
+}
+
+/* -------- RESPONSIVE -------- */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .main {
+    padding: 15px;
+  }
+}

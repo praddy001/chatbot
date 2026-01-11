@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Staff Dashboard</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/staff.css') }}">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://ui-avatars.com/api/?name={{ staff_name|default('Staff')|replace(' ', '+') }}&background=667eea&color=fff&size=200" alt="avatar">
+        <h3>{{ staff_name|default('Staff Name') }}</h3>
+        <p>{{ department|default('Department') }}</p>
+      </div>
+
+      <nav>
+        <a href="#" class="active">
+          <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a href="{{ url_for('staff_upload_notes') if url_for else '#' }}">
+          <i class="fas fa-upload"></i> Upload Notes
+        </a>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-user-check"></i> Manage Attendance
+        </button>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-calendar-alt"></i> Events
+        </button>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-brain"></i> Train Chatbot
+        </button>
+        <a href="{{ url_for('logout') if url_for else '/logout' }}">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <header class="topbar">
+        <h1>Welcome Back, {{ staff_name|default('Staff') }}! 👋</h1>
+        <div class="top-actions">
+          <button id="theme-toggle">
+            <i class="fas fa-moon"></i> Toggle Theme
+          </button>
+        </div>
+      </header>
+
+      <!-- QUICK STATS CARDS -->
+      <section class="cards">
+        <div class="card">
+          📤 Uploads
+          <span>{{ uploads|default('0') }}</span>
+        </div>
+        <div class="card">
+          📅 Events
+          <span>{{ events|default('0') }}</span>
+        </div>
+        <div class="card">
+          👥 Students
+          <span>{{ students|default('0') }}</span>
+        </div>
+      </section>
+
+      <!-- UPLOAD ZONE -->
+      <section class="upload-zone">
+        <h2>📁 Upload Notes</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <form method="post" action="{{ url_for('staff_upload') if url_for else '/staff/upload' }}" enctype="multipart/form-data">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <div class="file-input-wrapper">
+            <input type="file" name="file" required>
+          </div>
+          <button type="submit">
+            <i class="fas fa-cloud-upload-alt"></i> Upload File
+          </button>
+        </form>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- COMING SOON MODAL -->
+  <div id="comingSoonModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h2>Coming Soon!</h2>
+      <p>This feature is currently under development. We're working hard to bring it to you soon. Stay tuned!</p>
+      <button class="modal-close" onclick="closeModal()">Got it!</button>
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const icon = document.querySelector('#theme-toggle i');
+      if (document.body.classList.contains('dark')) {
+        icon.className = 'fas fa-sun';
+      } else {
+        icon.className = 'fas fa-moon';
+      }
+    });
+
+    // Coming Soon Modal
+    function showComingSoon() {
+      document.getElementById('comingSoonModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('comingSoonModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('comingSoonModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

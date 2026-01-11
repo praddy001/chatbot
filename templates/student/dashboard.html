@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #667eea;
+      --primary-dark: #5568d3;
+      --secondary: #764ba2;
+      --bg-main: #f7fafc;
+      --bg-card: #ffffff;
+      --text-primary: #2d3748;
+      --text-secondary: #718096;
+      --border: #e2e8f0;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --sidebar-bg: #2d3748;
+      --sidebar-text: #cbd5e0;
+      --sidebar-active: #667eea;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    body.dark {
+      --bg-main: #1a202c;
+      --bg-card: #2d3748;
+      --text-primary: #e2e8f0;
+      --text-secondary: #a0aec0;
+      --border: #4a5568;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --sidebar-bg: #1a202c;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      padding: 2rem 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px var(--shadow);
+    }
+
+    .profile {
+      text-align: center;
+      padding: 0 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid var(--sidebar-active);
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+
+    .profile h3 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .profile p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar nav a,
+    .sidebar nav button {
+      color: var(--sidebar-text);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav button:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: white;
+      padding-left: 2rem;
+    }
+
+    .sidebar nav a.active {
+      background: var(--sidebar-active);
+      color: white;
+      border-left: 4px solid white;
+    }
+
+    .sidebar nav a i,
+    .sidebar nav button i {
+      width: 20px;
+      text-align: center;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    .topbar {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+
+    .topbar h1 {
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .top-actions button {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .top-actions button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* QUICK STATS CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px var(--shadow);
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--primary);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px var(--shadow);
+    }
+
+    .card-title {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    /* SECTIONS */
+    .notes, .events {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px var(--shadow);
+    }
+
+    .notes h2, .events h2 {
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .note-card {
+      background: var(--bg-main);
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .note-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px var(--shadow);
+    }
+
+    .note-card h3 {
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .note-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .download {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .download:hover {
+      background: var(--primary-dark);
+      transform: translateX(5px);
+    }
+
+    .events ul {
+      list-style: none;
+    }
+
+    .events li {
+      padding: 1.2rem;
+      background: var(--bg-main);
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .events li:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px var(--shadow);
+    }
+
+    .events strong {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .event-detail {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      margin: 15% auto;
+      padding: 3rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .modal-content h2 {
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .modal-content p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .modal-close {
+      padding: 0.8rem 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://ui-avatars.com/api/?name={{ user_name|default('Student')|replace(' ', '+') }}&background=667eea&color=fff&size=200" alt="avatar">
+        <h3>{{ user_name|default('Student Name') }}</h3>
+        <p>{{ user_course|default('FY - Computer Science') }}</p>
+      </div>
+
+      <nav>
+        <a href="{{ url_for('dashboard') }}" class="active">
+          <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a href="https://econtent.msbte.edu.in/curriculum_search/" target="_blank">
+          <i class="fas fa-book"></i> Subjects (FY)
+        </a>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-file-alt"></i> Notes
+        </button>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-calendar-check"></i> Attendance
+        </button>
+        <button onclick="showComingSoon()">
+          <i class="fas fa-calendar-alt"></i> Events
+        </button>
+        <a href="{{ url_for('chatbot') if url_for else '/chatbot' }}">
+          <i class="fas fa-robot"></i> Chatbot
+        </a>
+        <a href="{{ url_for('logout') if url_for else '/logout' }}">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1>Welcome Back, {{ user_name|default('Student') }}! 👋</h1>
+          <p class="subtitle">Here's a quick summary of your activity.</p>
+        </div>
+        <div class="top-actions">
+          <button id="theme-toggle">
+            <i class="fas fa-moon"></i> Toggle Theme
+          </button>
+        </div>
+      </header>
+
+      <!-- QUICK STATS CARDS -->
+      <section class="cards">
+        <div class="card">
+          <div class="card-title">📊 Attendance</div>
+          <div class="card-value">85%</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📅 Upcoming</div>
+          <div class="card-value">Tech Fest</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📝 Notes</div>
+          <div class="card-value">24</div>
+        </div>
+      </section>
+
+      <!-- RECENT NOTES -->
+      <section class="notes">
+        <h2>📚 Recent Notes</h2>
+        <div class="grid">
+          <div class="note-card">
+            <h3>Data Structures</h3>
+            <p>Comprehensive notes on linked lists, trees, and graphs</p>
+            <a href="#" class="download">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+          
+          <div class="note-card">
+            <h3>Web Development</h3>
+            <p>HTML, CSS, and JavaScript fundamentals with examples</p>
+            <a href="#" class="download">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+          
+          <div class="note-card">
+            <h3>Database Management</h3>
+            <p>SQL queries, normalization, and database design principles</p>
+            <a href="#" class="download">
+              <i class="fas fa-download"></i> Download
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="events">
+        <h2>🎉 Upcoming Events</h2>
+        <ul>
+          <li>
+            <strong>Tech Fest 2025</strong>
+            <p class="event-detail">January 15, 2026 — Main Auditorium</p>
+          </li>
+          <li>
+            <strong>Coding Competition</strong>
+            <p class="event-detail">January 20, 2026 — Computer Lab</p>
+          </li>
+          <li>
+            <strong>Workshop on AI/ML</strong>
+            <p class="event-detail">January 25, 2026 — Seminar Hall</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- COMING SOON MODAL -->
+  <div id="comingSoonModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h2>Coming Soon!</h2>
+      <p>This feature is currently under development. We're working hard to bring it to you soon. Stay tuned!</p>
+      <button class="modal-close" onclick="closeModal()">Got it!</button>
+    </div>
+  </div>
+
+<script>
+  // Theme Toggle
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    const icon = document.querySelector('#theme-toggle i');
+    if (document.body.classList.contains('dark')) {
+      icon.className = 'fas fa-sun';
+    } else {
+      icon.className = 'fas fa-moon';
+    }
+  });
+
+  // Coming Soon Modal
+  function showComingSoon() {
+    document.getElementById('comingSoonModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('comingSoonModal').style.display = 'none';
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    const modal = document.getElementById('comingSoonModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>

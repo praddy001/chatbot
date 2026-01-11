@@ -1,0 +1,22 @@
+# Core Flask
+Flask==2.3.3
+Werkzeug==2.3.7
+python-dotenv==1.0.0
+
+# AI Integration
+google-generativeai==0.3.2
+
+# Security & Rate Limiting
+Flask-Limiter==3.5.0
+
+# Authentication (for future use)
+Flask-Login==0.6.2
+
+# Database (for future use)
+Flask-SQLAlchemy==3.0.3
+
+# HTTP Requests
+requests==2.31.0
+
+# Production Server
+gunicorn==21.2.0
